@@ -15,9 +15,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author Al
  */
-public class FrameSidebar extends javax.swing.JFrame {
+public final class FrameSidebar extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameSidebar.class.getName());
     private CardLayout cardLayout;
     /**
      * Creates new form FrameDashboard
@@ -236,14 +235,14 @@ public class FrameSidebar extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION);
 
         switch (pilihan) {
-            case JOptionPane.YES_OPTION:
+            case JOptionPane.YES_OPTION -> {
                 dispose();
                 new FrameLogin().setVisible(true);
-                break;
-            case JOptionPane.NO_OPTION:
-                break;
-            default:
-                break;
+            }
+            case JOptionPane.NO_OPTION -> {
+            }
+            default -> {
+            }
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 

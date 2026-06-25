@@ -33,9 +33,9 @@ public class PanelJurusan extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        btnHapus = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -74,14 +74,27 @@ public class PanelJurusan extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(219, 243, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 24, 0, 24));
-        jPanel3.setPreferredSize(new java.awt.Dimension(100, 160));
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel3.setMinimumSize(new java.awt.Dimension(248, 110));
+        jPanel3.setPreferredSize(new java.awt.Dimension(100, 170));
+        jPanel3.setLayout(new java.awt.BorderLayout(20, 20));
 
         jPanel5.setBackground(new java.awt.Color(219, 243, 255));
         jPanel5.setMinimumSize(new java.awt.Dimension(200, 80));
         jPanel5.setPreferredSize(new java.awt.Dimension(200, 80));
+        jPanel5.setLayout(new java.awt.BorderLayout(20, 20));
 
+        jPanel7.setBackground(new java.awt.Color(219, 243, 255));
+        jPanel7.setMinimumSize(new java.awt.Dimension(504, 50));
+        jPanel7.setPreferredSize(new java.awt.Dimension(504, 50));
         jPanel7.setLayout(new java.awt.GridLayout(1, 4, 12, 0));
+
+        btnHapus.setBackground(new java.awt.Color(231, 35, 35));
+        btnHapus.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
+        btnHapus.setText("DELETE");
+        btnHapus.setIconTextGap(10);
+        jPanel7.add(btnHapus);
 
         btnEdit.setBackground(new java.awt.Color(245, 140, 38));
         btnEdit.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -99,14 +112,6 @@ public class PanelJurusan extends javax.swing.JPanel {
         btnTambah.setIconTextGap(10);
         jPanel7.add(btnTambah);
 
-        btnHapus.setBackground(new java.awt.Color(231, 35, 35));
-        btnHapus.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
-        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
-        btnHapus.setText("DELETE");
-        btnHapus.setIconTextGap(10);
-        jPanel7.add(btnHapus);
-
         btnReset.setBackground(new java.awt.Color(31, 123, 246));
         btnReset.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,6 +119,8 @@ public class PanelJurusan extends javax.swing.JPanel {
         btnReset.setText("RESET");
         btnReset.setIconTextGap(10);
         jPanel7.add(btnReset);
+
+        jPanel5.add(jPanel7, java.awt.BorderLayout.PAGE_END);
 
         jPanel11.setBackground(new java.awt.Color(219, 243, 255));
         jPanel11.setLayout(new java.awt.GridLayout(1, 2, 12, 0));
@@ -144,20 +151,7 @@ public class PanelJurusan extends javax.swing.JPanel {
 
         jPanel11.add(jPanel9);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
-            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel5.add(jPanel11, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel5, java.awt.BorderLayout.CENTER);
 

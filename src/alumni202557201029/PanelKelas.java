@@ -50,9 +50,9 @@ public class PanelKelas extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        btnTambah = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,7 +83,7 @@ public class PanelKelas extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel6.setBackground(new java.awt.Color(219, 243, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 24, 24, 24));
+        jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 24, 24, 24));
         jPanel6.setPreferredSize(new java.awt.Dimension(320, 606));
         jPanel6.setLayout(new java.awt.BorderLayout());
 
@@ -168,13 +168,13 @@ public class PanelKelas extends javax.swing.JPanel {
         jPanel4.setPreferredSize(new java.awt.Dimension(576, 75));
         jPanel4.setLayout(new java.awt.GridLayout(1, 4, 12, 0));
 
-        btnTambah.setBackground(new java.awt.Color(82, 201, 93));
-        btnTambah.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
-        btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/tambah.png"))); // NOI18N
-        btnTambah.setText("TAMBAH");
-        btnTambah.setIconTextGap(10);
-        jPanel4.add(btnTambah);
+        btnDelete.setBackground(new java.awt.Color(231, 35, 35));
+        btnDelete.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
+        btnDelete.setText("DELETE");
+        btnDelete.setIconTextGap(10);
+        jPanel4.add(btnDelete);
 
         btnEdit.setBackground(new java.awt.Color(245, 140, 38));
         btnEdit.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -184,13 +184,13 @@ public class PanelKelas extends javax.swing.JPanel {
         btnEdit.setIconTextGap(10);
         jPanel4.add(btnEdit);
 
-        btnDelete.setBackground(new java.awt.Color(231, 35, 35));
-        btnDelete.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
-        btnDelete.setText("DELETE");
-        btnDelete.setIconTextGap(10);
-        jPanel4.add(btnDelete);
+        btnTambah.setBackground(new java.awt.Color(82, 201, 93));
+        btnTambah.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
+        btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/tambah.png"))); // NOI18N
+        btnTambah.setText("TAMBAH");
+        btnTambah.setIconTextGap(10);
+        jPanel4.add(btnTambah);
 
         btnReset.setBackground(new java.awt.Color(31, 123, 246));
         btnReset.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
