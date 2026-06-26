@@ -106,6 +106,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Speedometer.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
         btnDashboard.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnDashboard.setIconTextGap(20);
         btnDashboard.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -117,6 +118,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Logout Rounded Left.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLogout.setIconTextGap(20);
         btnLogout.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -128,6 +130,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnJurusan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Building.png"))); // NOI18N
         btnJurusan.setText("Jurusan");
         btnJurusan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnJurusan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnJurusan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnJurusan.setIconTextGap(20);
         btnJurusan.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -139,6 +142,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnGuru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/School Director.png"))); // NOI18N
         btnGuru.setText("Guru");
         btnGuru.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnGuru.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuru.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnGuru.setIconTextGap(20);
         btnGuru.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -150,6 +154,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnKelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Class.png"))); // NOI18N
         btnKelas.setText("Kelas");
         btnKelas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnKelas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKelas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnKelas.setIconTextGap(20);
         btnKelas.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -161,6 +166,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnSiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Graduation Cap.png"))); // NOI18N
         btnSiswa.setText("Siswa");
         btnSiswa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnSiswa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSiswa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSiswa.setIconTextGap(20);
         btnSiswa.setMargin(new java.awt.Insets(2, 24, 3, 14));
@@ -172,6 +178,7 @@ public final class FrameSidebar extends javax.swing.JFrame {
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Info.png"))); // NOI18N
         btnAbout.setText("About");
         btnAbout.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnAbout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAbout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAbout.setIconTextGap(20);
         btnAbout.setMargin(new java.awt.Insets(2, 24, 3, 14));

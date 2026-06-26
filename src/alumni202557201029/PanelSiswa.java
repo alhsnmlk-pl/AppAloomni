@@ -4,6 +4,24 @@
  */
 package alumni202557201029;
 
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.io.File;
+import java.nio.file.Files;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
+
+
+
 /**
  *
  * @author Al
@@ -16,6 +34,77 @@ public class PanelSiswa extends javax.swing.JPanel {
     public PanelSiswa() {
         initComponents();
     }
+    
+    
+    // Method untuk mengosongkan semua input pada form siswa
+    void reset() {
+
+        // Mengosongkan field NIS
+        tNis.setText(null);
+
+        // Mengosongkan field Nama Siswa
+        tNamaSiswa.setText(null);
+
+        // Mengosongkan pilihan pada combo box Jenis Kelamin
+        cGender.setSelectedItem(null);
+
+        // Mengosongkan field Tempat Lahir
+        tTempatLahir.setText(null);
+
+        // Mengosongkan pilihan pada komponen kalender Tanggal Lahir
+        tTgl.setCalendar(null);
+
+        // Mengosongkan field Nomor HP
+        tNoHp.setText(null);
+
+        // Mengosongkan pilihan pada combo box Kelas
+        cKelas.setSelectedItem(null);
+
+        // Mengosongkan field Alamat
+        tAlamat.setText(null);
+
+        // Menghapus icon pada label foto
+        lblFoto.setIcon(null);
+
+        // Mengatur teks label foto menjadi "Foto"
+        lblFoto.setText("Foto");
+
+        // Mengosongkan path file foto yang disimpan
+        tPathFoto.setText(null);
+    }
+    
+    
+    // Method untuk mengisi combo box kelas dari tabel 'kelas' di database
+    void comboKelas() {
+        try {
+            // Query SQL untuk mengambil semua data kelas
+            String sql = "SELECT * FROM kelas";
+
+            // Membuka koneksi ke database
+            Connection conn = Koneksi.konek();
+
+            // Membuat statement untuk menjalankan query
+            Statement statement = conn.createStatement();
+
+            // Menjalankan query dan menyimpan hasilnya
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Mengambil data satu per satu dan menambahkannya ke combo box
+            while (resultSet.next()) {
+                cKelas.addItem(resultSet.getString("id_kelas"));
+            }
+        } catch (SQLException e) {
+            // Jika terjadi kesalahan, tampilkan pesan error
+        }
+
+        // Mengosongkan pilihan combo box setelah diisi
+        cKelas.setSelectedItem(null);
+    }
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,15 +118,16 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        btnHapus = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        jPanel18 = new javax.swing.JPanel();
         lblFoto = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -46,7 +136,7 @@ public class PanelSiswa extends javax.swing.JPanel {
         tNis = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        tNama = new javax.swing.JTextField();
+        tNamaSiswa = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cGender = new javax.swing.JComboBox<>();
@@ -55,7 +145,7 @@ public class PanelSiswa extends javax.swing.JPanel {
         tTempatLahir = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        tTglLahir = new javax.swing.JTextField();
+        tTgl = new com.toedter.calendar.JDateChooser();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -70,6 +160,7 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSiswa = new javax.swing.JTable();
+        tPathFoto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 220, 255));
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 2, new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(24, 24, 24, 24)));
@@ -91,6 +182,16 @@ public class PanelSiswa extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 0));
         jPanel10.add(jLabel1);
 
+        lblClose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Close Window.png"))); // NOI18N
+        lblClose.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 24));
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+        });
+        jPanel10.add(lblClose);
+
         jPanel1.add(jPanel10, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -98,15 +199,24 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(219, 243, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 24, 0, 24));
         jPanel3.setPreferredSize(new java.awt.Dimension(100, 350));
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
         jPanel5.setBackground(new java.awt.Color(219, 243, 255));
         jPanel5.setMinimumSize(new java.awt.Dimension(200, 80));
         jPanel5.setPreferredSize(new java.awt.Dimension(200, 70));
-
-        jPanel12.setOpaque(false);
+        jPanel5.setLayout(new java.awt.BorderLayout(0, 10));
 
         jPanel7.setOpaque(false);
+        jPanel7.setPreferredSize(new java.awt.Dimension(504, 45));
         jPanel7.setLayout(new java.awt.GridLayout(1, 4, 12, 0));
+
+        btnHapus.setBackground(new java.awt.Color(231, 35, 35));
+        btnHapus.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
+        btnHapus.setText("DELETE");
+        btnHapus.setIconTextGap(10);
+        jPanel7.add(btnHapus);
 
         btnEdit.setBackground(new java.awt.Color(245, 140, 38));
         btnEdit.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -124,14 +234,6 @@ public class PanelSiswa extends javax.swing.JPanel {
         btnTambah.setIconTextGap(10);
         jPanel7.add(btnTambah);
 
-        btnHapus.setBackground(new java.awt.Color(231, 35, 35));
-        btnHapus.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
-        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
-        btnHapus.setText("DELETE");
-        btnHapus.setIconTextGap(10);
-        jPanel7.add(btnHapus);
-
         btnReset.setBackground(new java.awt.Color(31, 123, 246));
         btnReset.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,22 +242,19 @@ public class PanelSiswa extends javax.swing.JPanel {
         btnReset.setIconTextGap(10);
         jPanel7.add(btnReset);
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
+        jPanel5.add(jPanel7, java.awt.BorderLayout.PAGE_END);
+
+        jPanel18.setBackground(new java.awt.Color(219, 243, 255));
+        jPanel18.setLayout(new java.awt.BorderLayout(24, 15));
 
         lblFoto.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 18)); // NOI18N
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setText("Foto");
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFoto.setPreferredSize(new java.awt.Dimension(210, 25));
+        jPanel18.add(lblFoto, java.awt.BorderLayout.LINE_START);
 
+        jPanel8.setBackground(new java.awt.Color(219, 243, 255));
         jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.GridLayout(1, 0, 24, 0));
 
@@ -170,7 +269,6 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel9.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
         tNis.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tNis.setText("jTextField1");
         tNis.addActionListener(this::tNisActionPerformed);
         jPanel9.add(tNis, java.awt.BorderLayout.CENTER);
 
@@ -183,10 +281,9 @@ public class PanelSiswa extends javax.swing.JPanel {
         jLabel4.setText(" Nama");
         jPanel11.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        tNama.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tNama.setText("jTextField1");
-        tNama.addActionListener(this::tNamaActionPerformed);
-        jPanel11.add(tNama, java.awt.BorderLayout.CENTER);
+        tNamaSiswa.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        tNamaSiswa.addActionListener(this::tNamaSiswaActionPerformed);
+        jPanel11.add(tNamaSiswa, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel11);
 
@@ -197,7 +294,7 @@ public class PanelSiswa extends javax.swing.JPanel {
         jLabel5.setText(" Jenis Kelamin");
         jPanel13.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
-        cGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-Laki", "Perempuan" }));
         jPanel13.add(cGender, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel13);
@@ -210,7 +307,6 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel14.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
         tTempatLahir.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tTempatLahir.setText("jTextField1");
         tTempatLahir.addActionListener(this::tTempatLahirActionPerformed);
         jPanel14.add(tTempatLahir, java.awt.BorderLayout.CENTER);
 
@@ -223,10 +319,9 @@ public class PanelSiswa extends javax.swing.JPanel {
         jLabel7.setText(" Tanggal Lahir");
         jPanel15.add(jLabel7, java.awt.BorderLayout.PAGE_START);
 
-        tTglLahir.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tTglLahir.setText("jTextField1");
-        tTglLahir.addActionListener(this::tTglLahirActionPerformed);
-        jPanel15.add(tTglLahir, java.awt.BorderLayout.CENTER);
+        tTgl.setDateFormatString("yyyy-MM-dd");
+        tTgl.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        jPanel15.add(tTgl, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel15);
 
@@ -242,7 +337,6 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel17.add(jLabel8, java.awt.BorderLayout.PAGE_START);
 
         tNoHp.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tNoHp.setText("jTextField1");
         tNoHp.addActionListener(this::tNoHpActionPerformed);
         jPanel17.add(tNoHp, java.awt.BorderLayout.CENTER);
 
@@ -273,9 +367,9 @@ public class PanelSiswa extends javax.swing.JPanel {
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,51 +378,23 @@ public class PanelSiswa extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
         );
 
         jPanel8.add(jPanel16);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE))
-            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1, Short.MAX_VALUE))
-        );
+        jPanel18.add(jPanel8, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
-        );
+        jPanel5.add(jPanel18, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel5, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(219, 243, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 24, 24, 24));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 24, 24, 24));
         jPanel4.setPreferredSize(new java.awt.Dimension(500, 430));
-        jPanel4.setLayout(new java.awt.CardLayout());
+        jPanel4.setLayout(new java.awt.BorderLayout(0, 10));
 
         tblSiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,7 +409,11 @@ public class PanelSiswa extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblSiswa);
 
-        jPanel4.add(jScrollPane1, "card2");
+        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        tPathFoto.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        tPathFoto.setText("jLabel2");
+        jPanel4.add(tPathFoto, java.awt.BorderLayout.PAGE_END);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
@@ -352,13 +422,10 @@ public class PanelSiswa extends javax.swing.JPanel {
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tNisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNisActionPerformed
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tNisActionPerformed
-
-    private void tNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tNamaActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_lblCloseMouseClicked
 
     private void tNoHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNoHpActionPerformed
         // TODO add your handling code here:
@@ -368,9 +435,13 @@ public class PanelSiswa extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tTempatLahirActionPerformed
 
-    private void tTglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTglLahirActionPerformed
+    private void tNamaSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNamaSiswaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tTglLahirActionPerformed
+    }//GEN-LAST:event_tNamaSiswaActionPerformed
+
+    private void tNisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tNisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -392,12 +463,12 @@ public class PanelSiswa extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
@@ -410,13 +481,15 @@ public class PanelSiswa extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JTextArea tAlamat;
-    private javax.swing.JTextField tNama;
+    private javax.swing.JTextField tNamaSiswa;
     private javax.swing.JTextField tNis;
     private javax.swing.JTextField tNoHp;
+    private javax.swing.JLabel tPathFoto;
     private javax.swing.JTextField tTempatLahir;
-    private javax.swing.JTextField tTglLahir;
+    private com.toedter.calendar.JDateChooser tTgl;
     private javax.swing.JTable tblSiswa;
     // End of variables declaration//GEN-END:variables
 }

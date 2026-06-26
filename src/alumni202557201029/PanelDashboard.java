@@ -72,7 +72,7 @@ public class PanelDashboard extends javax.swing.JPanel {
         jmlJurusan.setBackground(new java.awt.Color(255, 255, 255));
         jmlJurusan.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 36)); // NOI18N
         jmlJurusan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jmlJurusan.setText("0");
+        jmlJurusan.setText("JJ");
         jmlJurusan.setOpaque(true);
         jPanel5.add(jmlJurusan, java.awt.BorderLayout.CENTER);
 
@@ -98,7 +98,7 @@ public class PanelDashboard extends javax.swing.JPanel {
         jmlGuru.setBackground(new java.awt.Color(255, 255, 255));
         jmlGuru.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 36)); // NOI18N
         jmlGuru.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jmlGuru.setText("jLabel2");
+        jmlGuru.setText("JG");
         jmlGuru.setOpaque(true);
         jPanel6.add(jmlGuru, java.awt.BorderLayout.CENTER);
 
@@ -124,7 +124,7 @@ public class PanelDashboard extends javax.swing.JPanel {
         jmlSiswa.setBackground(new java.awt.Color(255, 255, 255));
         jmlSiswa.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 36)); // NOI18N
         jmlSiswa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jmlSiswa.setText("jLabel2");
+        jmlSiswa.setText("JS");
         jmlSiswa.setOpaque(true);
         jPanel7.add(jmlSiswa, java.awt.BorderLayout.CENTER);
 
@@ -150,7 +150,7 @@ public class PanelDashboard extends javax.swing.JPanel {
         jmlKelas.setBackground(new java.awt.Color(255, 255, 255));
         jmlKelas.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 36)); // NOI18N
         jmlKelas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jmlKelas.setText("jLabel2");
+        jmlKelas.setText("JK");
         jmlKelas.setOpaque(true);
         jPanel9.add(jmlKelas, java.awt.BorderLayout.CENTER);
 

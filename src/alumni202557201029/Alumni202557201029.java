@@ -15,6 +15,7 @@ public class Alumni202557201029 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new FrameLogin().setVisible(true);
     }
     
 }

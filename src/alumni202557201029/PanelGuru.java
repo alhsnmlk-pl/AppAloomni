@@ -4,6 +4,14 @@
  */
 package alumni202557201029;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Al
@@ -15,6 +23,82 @@ public class PanelGuru extends javax.swing.JPanel {
      */
     public PanelGuru() {
         initComponents();
+        
+        //mengosongkan form input dan mengatur ulang komponen input
+        reset();
+        
+        //memuat data dari database ke dalam tabel guru pada GUI
+        load_tabel_guru();
+    }
+    
+    //method untuk mereset form input
+    void reset(){
+        //kosongkan field nip
+        tNIP.setText(null);
+        
+        //aktifkan kkembali agar NIP bisa di edit kembali
+        tNIP.setEditable(true);
+        
+        //kosongkan field nama guru
+        tNamaGuru.setText(null);
+        
+        //reset pilihan jenis kelamin (combo box)
+        cJenisKel.setSelectedItem(null);
+        
+        //kosongkan field alamat
+        tAlamat.setText(null);
+    }
+    
+    //method utk memuat data dari tabel 'guru' ke dalam tabel gui (tblguru)
+    void load_tabel_guru(){
+        
+        //membuat model tabel guru
+        DefaultTableModel model = new DefaultTableModel();
+        
+        //menambahkan nama kolom ke dalam model tabel
+        model.addColumn("NIP");
+        model.addColumn("Nama Guru");
+        model.addColumn("L/P");
+        model.addColumn("Alamat");
+        
+        
+        try {
+            //sql utk mengambil semua data dari tabel guru
+            String sql = "SELECT * FROM guru";
+
+            //membuka koneksi ke database
+            Connection conn = Koneksi.konek();
+
+            //membuat statement sql
+            Statement st = conn.createStatement();
+
+            //menjalankan query dan menyimpan hasilnya
+            ResultSet rs = st.executeQuery(sql);
+
+            //iterasi utk setiap baris hasil query
+            while (rs.next()) {
+
+                //mengambil nilai dari masing2 kolom
+                String NIP = rs.getString("nip");
+                String namaGuru = rs.getString("nama_guru");
+                String jenisKelamin = rs.getString("gender");
+                String alamat = rs.getString("alamat");
+
+                //menyusun data ke dalam array objek
+                Object[] baris = {NIP, namaGuru, jenisKelamin, alamat};
+
+                //menambahkan data ke model tabel
+                model.addRow(baris);
+            }
+        } catch (SQLException sQLException) {
+            //menampilka pesan error jika terjadi kegagalan
+            JOptionPane.showMessageDialog(null, "gagal mengambil data guru!");
+        }
+        
+        //menampilkan data model ke dalam tabel GUI
+        tblGuru.setModel(model);
+        
+        
     }
 
     /**
@@ -29,28 +113,29 @@ public class PanelGuru extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tNIP = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tNamaGuru = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cJenisKel = new javax.swing.JComboBox<>();
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tAlamat = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,6 +161,16 @@ public class PanelGuru extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 0));
         jPanel10.add(jLabel1);
 
+        lblClose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/Close Window.png"))); // NOI18N
+        lblClose.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 24));
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+        });
+        jPanel10.add(lblClose);
+
         jPanel1.add(jPanel10, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -95,10 +190,9 @@ public class PanelGuru extends javax.swing.JPanel {
         jLabel2.setText(" NIP");
         jPanel9.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
-        jTextField1.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
-        jPanel9.add(jTextField1, java.awt.BorderLayout.CENTER);
+        tNIP.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        tNIP.addActionListener(this::tNIPActionPerformed);
+        jPanel9.add(tNIP, java.awt.BorderLayout.CENTER);
 
         jPanel11.setBackground(new java.awt.Color(219, 243, 255));
         jPanel11.setLayout(new java.awt.BorderLayout(0, 5));
@@ -107,10 +201,9 @@ public class PanelGuru extends javax.swing.JPanel {
         jLabel3.setText(" Nama");
         jPanel11.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
-        jTextField2.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField1");
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-        jPanel11.add(jTextField2, java.awt.BorderLayout.CENTER);
+        tNamaGuru.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        tNamaGuru.addActionListener(this::tNamaGuruActionPerformed);
+        jPanel11.add(tNamaGuru, java.awt.BorderLayout.CENTER);
 
         jPanel12.setBackground(new java.awt.Color(219, 243, 255));
         jPanel12.setLayout(new java.awt.BorderLayout(0, 5));
@@ -119,8 +212,9 @@ public class PanelGuru extends javax.swing.JPanel {
         jLabel4.setText(" Jenis Kelamin");
         jPanel12.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel12.add(jComboBox1, java.awt.BorderLayout.CENTER);
+        cJenisKel.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        cJenisKel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki - laki", "Perempuan" }));
+        jPanel12.add(cJenisKel, java.awt.BorderLayout.CENTER);
 
         jPanel13.setBackground(new java.awt.Color(219, 243, 255));
         jPanel13.setLayout(new java.awt.BorderLayout(0, 5));
@@ -129,9 +223,12 @@ public class PanelGuru extends javax.swing.JPanel {
         jLabel5.setText(" Alamat");
         jPanel13.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tAlamat.setColumns(20);
+        tAlamat.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
+        tAlamat.setRows(5);
+        jScrollPane2.setViewportView(tAlamat);
 
         jPanel13.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -172,13 +269,14 @@ public class PanelGuru extends javax.swing.JPanel {
         jPanel4.setPreferredSize(new java.awt.Dimension(576, 75));
         jPanel4.setLayout(new java.awt.GridLayout(1, 4, 12, 0));
 
-        jButton1.setBackground(new java.awt.Color(82, 201, 93));
-        jButton1.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/tambah.png"))); // NOI18N
-        jButton1.setText("TAMBAH");
-        jButton1.setIconTextGap(10);
-        jPanel4.add(jButton1);
+        jButton3.setBackground(new java.awt.Color(231, 35, 35));
+        jButton3.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
+        jButton3.setText("DELETE");
+        jButton3.setIconTextGap(10);
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel4.add(jButton3);
 
         jButton2.setBackground(new java.awt.Color(245, 140, 38));
         jButton2.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -186,15 +284,17 @@ public class PanelGuru extends javax.swing.JPanel {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/edit.png"))); // NOI18N
         jButton2.setText("EDIT");
         jButton2.setIconTextGap(10);
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel4.add(jButton2);
 
-        jButton3.setBackground(new java.awt.Color(231, 35, 35));
-        jButton3.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
-        jButton3.setText("DELETE");
-        jButton3.setIconTextGap(10);
-        jPanel4.add(jButton3);
+        btnTambah.setBackground(new java.awt.Color(82, 201, 93));
+        btnTambah.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
+        btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/tambah.png"))); // NOI18N
+        btnTambah.setText("TAMBAH");
+        btnTambah.setIconTextGap(10);
+        btnTambah.addActionListener(this::btnTambahActionPerformed);
+        jPanel4.add(btnTambah);
 
         jButton4.setBackground(new java.awt.Color(31, 123, 246));
         jButton4.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -202,6 +302,7 @@ public class PanelGuru extends javax.swing.JPanel {
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/reset.png"))); // NOI18N
         jButton4.setText("RESET");
         jButton4.setIconTextGap(10);
+        jButton4.addActionListener(this::jButton4ActionPerformed);
         jPanel4.add(jButton4);
 
         jPanel5.add(jPanel4, java.awt.BorderLayout.PAGE_END);
@@ -210,6 +311,7 @@ public class PanelGuru extends javax.swing.JPanel {
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 0, 24, 24));
         jPanel7.setLayout(new java.awt.CardLayout());
 
+        tblGuru.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
         tblGuru.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -221,6 +323,11 @@ public class PanelGuru extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblGuru.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGuruMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblGuru);
 
         jPanel7.add(jScrollPane1, "card2");
@@ -236,21 +343,304 @@ public class PanelGuru extends javax.swing.JPanel {
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tNIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNIPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tNIPActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void tNamaGuruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tNamaGuruActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_tNamaGuruActionPerformed
+
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_lblCloseMouseClicked
+
+    private void tblGuruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGuruMouseClicked
+        // TODO add your handling code here:
+        // Mengambil indeks baris yang diklik oleh pengguna di tabel tblGuru
+        int barisYangDipilih = tblGuru.rowAtPoint(evt.getPoint());
+        
+        
+        
+        //mengubah pengambilan nilai yang di pilih, 
+        //jika data koosng maka akan diisi String kosong "",
+        //jika tidak maka baru akan di ubah ke string
+        String NIP,namaGuru,jenisKelamin,alamat;
+
+        if (tblGuru.getValueAt(barisYangDipilih, 0) == null) {
+            NIP = "";
+        } else {
+            NIP = tblGuru.getValueAt(barisYangDipilih, 0).toString();
+        }
+
+        if (tblGuru.getValueAt(barisYangDipilih, 1) == null) {
+            namaGuru = "";
+        } else {
+            namaGuru = tblGuru.getValueAt(barisYangDipilih, 1).toString();
+        }
+
+        if (tblGuru.getValueAt(barisYangDipilih, 2) == null) {
+            jenisKelamin = "";
+        } else {
+            jenisKelamin = tblGuru.getValueAt(barisYangDipilih, 2).toString();
+        }
+
+        if (tblGuru.getValueAt(barisYangDipilih, 3) == null) {
+            alamat = "";
+        } else {
+            alamat = tblGuru.getValueAt(barisYangDipilih, 3).toString();
+        }
+     
+
+//        // Mengambil nilai NIP dari kolom pertama (indeks 0) pada baris yang dipilih
+//        String NIP = tblGuru.getValueAt(barisYangDipilih, 0).toString();
+//
+//        // Mengambil nilai nama guru dari kolom kedua (indeks 1) pada baris yang dipilih
+//        String namaGuru = tblGuru.getValueAt(barisYangDipilih, 1).toString();
+//
+//        // Mengambil nilai jenis kelamin dari kolom ketiga (indeks 2) pada baris yang dipilih
+//        String jenisKelamin = tblGuru.getValueAt(barisYangDipilih, 2).toString();
+//
+//        // Mengambil nilai alamat dari kolom keempat (indeks 3) pada baris yang dipilih
+//        String alamat = tblGuru.getValueAt(barisYangDipilih, 3).toString();
+
+        
+        
+        
+        // Menampilkan nilai NIP ke dalam text field tNIP
+        tNIP.setText(NIP);
+
+        // Menonaktifkan field tNIP agar tidak bisa diedit (karena NIP bersifat unik dan tidak boleh diubah)
+        tNIP.setEditable(false);
+
+        // Menampilkan nama guru ke dalam text field tNamaGuru
+        tNamaGuru.setText(namaGuru);
+
+        // Menampilkan alamat ke dalam text field tAlamat
+        tAlamat.setText(alamat);
+
+        // Mengecek isi nilai jenis kelamin dan menyesuaikan pilihan pada combo box cJenisKelamin
+        switch (jenisKelamin) {
+
+            // Jika nilai jenis kelamin "L", set pilihan combo box ke "Laki - laki"
+            case "L":
+                cJenisKel.setSelectedItem("Laki - laki");
+                break;
+
+            // Jika nilai jenis kelamin "P", set pilihan combo box ke "Perempuan"
+            case "P":
+                cJenisKel.setSelectedItem("Perempuan");
+                break;
+
+            // Jika nilainya bukan "L" atau "P", kosongkan pilihan combo box
+            default:
+                cJenisKel.setSelectedItem(null);
+                break;
+        }
+    }//GEN-LAST:event_tblGuruMouseClicked
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+
+        // Mengambil input NIP dari text field tNIP
+        String NIP = tNIP.getText();
+
+        // Mengambil input nama guru dari text field tNamaGuru
+        String namaGuru = tNamaGuru.getText();
+
+        // Mengambil item yang dipilih dari combo box jenis kelamin
+        String jenisKelamin = cJenisKel.getSelectedItem().toString();
+
+        // Mengambil input alamat dari text field tAlamat
+        String alamat = tAlamat.getText();
+
+        // Menyiapkan variabel jK (jenis kelamin dalam format singkatan "L" atau "P")
+        String jK = null;
+
+        // Mengubah nilai jenisKelamin dari label menjadi format singkatan yang disimpan di database
+        switch (jenisKelamin) {
+            case "Laki - laki":
+                jK = "L";
+                break;
+
+            case "Perempuan":
+                jK = "P";
+                break;
+
+            default:
+                jK = null;
+                break;
+        }
+
+        // Menyusun perintah SQL untuk menyisipkan data guru ke dalam tabel guru
+        String sql = "INSERT INTO guru(nip, nama_guru, gender, alamat) VALUES(?,?,?,?)";
+
+        try {
+
+            // Membuka koneksi ke database menggunakan method konek()
+            Connection conn = Koneksi.konek();
+
+            // Mempersiapkan query SQL dengan parameter (prepared statement)
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Mengisi parameter pertama dengan NIP
+            ps.setString(1, NIP);
+
+            // Mengisi parameter kedua dengan nama guru
+            ps.setString(2, namaGuru);
+
+            // Mengisi parameter ketiga dengan jenis kelamin (L atau P)
+            ps.setString(3, jK);
+
+            // Mengisi parameter keempat dengan alamat
+            ps.setString(4, alamat);
+
+            // Menjalankan perintah INSERT untuk menyimpan data ke database
+            ps.execute();
+
+            // Menampilkan pesan bahwa data berhasil disimpan
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
+
+        } catch (SQLException sqLException) {
+
+            // Menampilkan pesan jika terjadi kesalahan saat menyimpan data
+            JOptionPane.showMessageDialog(null, "Data gagal disimpan!");
+        }
+
+        // Memuat ulang data guru di tabel tampilan
+        load_tabel_guru();
+
+        // Mereset semua input agar kosong kembali
+        reset();
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        // Mengambil nilai NIP dari text field tNIP
+        String NIP = tNIP.getText();
+
+        // Mengambil nama guru dari text field tNamaGuru
+        String namaGuru = tNamaGuru.getText();
+
+        // Mengambil item yang dipilih dari combo box jenis kelamin
+        String jenisKelamin = cJenisKel.getSelectedItem().toString();
+
+        // Mengambil alamat dari text field tAlamat
+        String alamat = tAlamat.getText();
+
+        // Menyiapkan variabel untuk menyimpan singkatan jenis kelamin ("L" atau "P")
+        String jK = null;
+
+        // Mengubah label jenis kelamin menjadi singkatan yang sesuai dengan format database
+        switch (jenisKelamin) {
+            case "Laki - laki":
+                jK = "L";
+                break;
+
+            case "Perempuan":
+                jK = "P";
+                break;
+
+            default:
+                jK = null;
+                break;
+        }
+
+        // Menyusun perintah SQL untuk memperbarui data guru berdasarkan NIP
+        String sql = "UPDATE guru SET nama_guru=?, gender=?, alamat=? WHERE nip=?";
+
+        try {
+
+            // Membuka koneksi ke database
+            Connection conn = Koneksi.konek();
+
+            // Mempersiapkan statement SQL dengan parameter (prepared statement)
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Mengisi parameter pertama (?) dengan nama guru
+            ps.setString(1, namaGuru);
+
+            // Mengisi parameter kedua (?) dengan jenis kelamin ("L"/"P")
+            ps.setString(2, jK);
+
+            // Mengisi parameter ketiga (?) dengan alamat
+            ps.setString(3, alamat);
+
+            // Mengisi parameter keempat (?) dengan NIP sebagai identitas data yang akan diubah
+            ps.setString(4, NIP);
+
+            // Menjalankan perintah UPDATE
+            ps.execute();
+
+            // Menampilkan pesan bahwa data berhasil diubah
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
+
+        } catch (SQLException sqLException) {
+
+            // Menampilkan pesan jika proses update gagal
+            JOptionPane.showMessageDialog(null, "Data gagal diubah!");
+        }
+
+        // Memuat ulang tabel guru untuk menampilkan data terbaru
+        load_tabel_guru();
+
+        // Mereset/mengosongkan form input
+        reset();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
+        // Mengambil nilai NIP dari text field tNIP
+        String NIP = tNIP.getText();
+
+        // Menyusun perintah SQL untuk menghapus data berdasarkan NIP
+        String sql = "DELETE FROM guru WHERE nip=?";
+
+        try {
+
+            // Membuka koneksi ke database
+            Connection conn = Koneksi.konek();
+
+            // Menyiapkan statement SQL dengan parameter (prepared statement)
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Mengisi parameter pertama (?) dengan nilai NIP
+            ps.setString(1, NIP);
+
+            // Menjalankan perintah DELETE untuk menghapus data dari database
+            ps.execute();
+
+            // Menampilkan pesan jika data berhasil dihapus
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
+
+        } catch (SQLException sqLException) {
+
+            // Menampilkan pesan jika terjadi kesalahan saat proses penghapusan
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus!");
+        }
+
+        // Memuat ulang data pada tabel guru setelah penghapusan
+        load_tabel_guru();
+
+        // Mereset atau mengosongkan form input
+        reset();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> cJenisKel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -271,9 +661,10 @@ public class PanelGuru extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblClose;
+    private javax.swing.JTextArea tAlamat;
+    private javax.swing.JTextField tNIP;
+    private javax.swing.JTextField tNamaGuru;
     private javax.swing.JTable tblGuru;
     // End of variables declaration//GEN-END:variables
 }

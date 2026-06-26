@@ -4,9 +4,16 @@
  */
 package alumni202557201029;
 
+
+
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +22,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class FrameLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameLogin.class.getName());
+    
 
     /**
      * Creates new form FrameLogin
@@ -42,7 +50,6 @@ public class FrameLogin extends javax.swing.JFrame {
 //                "FlatLaf.style",
 //                "borderWidth:2;arc:15;borderColor:#000000; focusedBorderColor:#000000");
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,7 +102,6 @@ public class FrameLogin extends javax.swing.JFrame {
         jLabel1.setText("User Login");
 
         tUsername.setFont(new java.awt.Font("Plus Jakarta Sans", 1, 14)); // NOI18N
-        tUsername.setText("jTextField1");
         tUsername.setMargin(new java.awt.Insets(2, 20, 2, 6));
 
         jLabel3.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 18)); // NOI18N
@@ -105,7 +111,6 @@ public class FrameLogin extends javax.swing.JFrame {
         jLabel4.setText("Password");
 
         tPassword.setFont(new java.awt.Font("Plus Jakarta Sans", 0, 14)); // NOI18N
-        tPassword.setText("jPasswordField1");
         tPassword.setMargin(new java.awt.Insets(2, 20, 2, 6));
 
         btnLogin.setBackground(new java.awt.Color(101, 202, 255));
@@ -170,8 +175,53 @@ public class FrameLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         
-        new FrameSidebar().setVisible(true);
-        dispose();
+        //ambil teks yg dimasukkan user pada field username 
+        String username = tUsername.getText();
+        
+        //ambil teks yg dimasukkan user pada field password
+        String password = tPassword.getText();
+        
+        //periksa apakah username dan password tidak kosong
+        if (username.length() != 0 && password.length() != 0) {
+            try {
+                //query sql utk mencari user dengan username dan password di hash dengan MD5
+                String sql = "SELECT * FROM user WHERE username=? AND password=md5(?)";
+                
+                //membuat koneksi ke databse
+                Connection con = Koneksi.konek();
+                
+                //siapkan statement sql dgn paramater
+                PreparedStatement ps = con.prepareStatement(sql);
+                
+                //isi paramter pertama (?) dgn username
+                ps.setString(1, username);
+                
+                //isi paramater kedua (?) dgn password yg akan di hash di md5 di sisi databse
+                ps.setString(2, password);
+                
+                
+                //jalankan query dan ambil hasilnya
+                ResultSet rs = ps.executeQuery();
+                
+                //jika hasil query memiliki hasil (berarti login berhasil)
+                if (rs.next()) {
+                    //tutp form login
+                    dispose();
+                    
+                    //buka form sidebar/dashboard
+                    new FrameSidebar().setVisible(true);
+                } else {
+                    //jika data tdk ditemukan, tampilkan pesan error
+                    JOptionPane.showMessageDialog(null, "Username/password salah");
+                }
+            } catch (SQLException sQLException) {
+                //jika terjadi kesalahan sql, tampilkan pesan error
+                JOptionPane.showMessageDialog(null, sQLException.getMessage());
+            }
+        } else {
+            //jika username / password kosong, beri peringatan ke user
+            JOptionPane.showMessageDialog(null, "Username/password tidak boleh kosong");
+        }
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
