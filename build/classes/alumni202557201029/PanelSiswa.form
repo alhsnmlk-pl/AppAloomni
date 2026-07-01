@@ -203,6 +203,9 @@
                             <Property name="text" type="java.lang.String" value="DELETE"/>
                             <Property name="iconTextGap" type="int" value="10"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHapusActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnEdit">
                           <Properties>
@@ -221,6 +224,9 @@
                             <Property name="text" type="java.lang.String" value="EDIT"/>
                             <Property name="iconTextGap" type="int" value="10"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnTambah">
                           <Properties>
@@ -239,6 +245,9 @@
                             <Property name="text" type="java.lang.String" value="TAMBAH"/>
                             <Property name="iconTextGap" type="int" value="10"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTambahActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnReset">
                           <Properties>
@@ -257,6 +266,9 @@
                             <Property name="text" type="java.lang.String" value="RESET"/>
                             <Property name="iconTextGap" type="int" value="10"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -293,6 +305,9 @@
                               <Dimension value="[210, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFotoMouseClicked"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                               <BorderConstraints direction="Before"/>
@@ -439,7 +454,7 @@
                                       <Properties>
                                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                           <StringArray count="2">
-                                            <StringItem index="0" value="Laki-Laki"/>
+                                            <StringItem index="0" value="Laki - laki"/>
                                             <StringItem index="1" value="Perempuan"/>
                                           </StringArray>
                                         </Property>
@@ -631,14 +646,12 @@
                                     <Component class="javax.swing.JComboBox" name="cKelas">
                                       <Properties>
                                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                          <StringArray count="4">
-                                            <StringItem index="0" value="Item 1"/>
-                                            <StringItem index="1" value="Item 2"/>
-                                            <StringItem index="2" value="Item 3"/>
-                                            <StringItem index="3" value="Item 4"/>
-                                          </StringArray>
+                                          <StringArray count="0"/>
                                         </Property>
                                       </Properties>
+                                      <Events>
+                                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cKelasMouseClicked"/>
+                                      </Events>
                                       <AuxValues>
                                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                                       </AuxValues>
@@ -753,6 +766,9 @@
                           </Table>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblSiswaMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

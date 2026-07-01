@@ -133,8 +133,8 @@ public class PanelGuru extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
@@ -269,23 +269,23 @@ public class PanelGuru extends javax.swing.JPanel {
         jPanel4.setPreferredSize(new java.awt.Dimension(576, 75));
         jPanel4.setLayout(new java.awt.GridLayout(1, 4, 12, 0));
 
-        jButton3.setBackground(new java.awt.Color(231, 35, 35));
-        jButton3.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
-        jButton3.setText("DELETE");
-        jButton3.setIconTextGap(10);
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        jPanel4.add(jButton3);
+        btnHapus.setBackground(new java.awt.Color(231, 35, 35));
+        btnHapus.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/hapus.png"))); // NOI18N
+        btnHapus.setText("DELETE");
+        btnHapus.setIconTextGap(10);
+        btnHapus.addActionListener(this::btnHapusActionPerformed);
+        jPanel4.add(btnHapus);
 
-        jButton2.setBackground(new java.awt.Color(245, 140, 38));
-        jButton2.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/edit.png"))); // NOI18N
-        jButton2.setText("EDIT");
-        jButton2.setIconTextGap(10);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel4.add(jButton2);
+        btnEdit.setBackground(new java.awt.Color(245, 140, 38));
+        btnEdit.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alumni202557201029/img/edit.png"))); // NOI18N
+        btnEdit.setText("EDIT");
+        btnEdit.setIconTextGap(10);
+        btnEdit.addActionListener(this::btnEditActionPerformed);
+        jPanel4.add(btnEdit);
 
         btnTambah.setBackground(new java.awt.Color(82, 201, 93));
         btnTambah.setFont(new java.awt.Font("Plus Jakarta Sans SemiBold", 0, 12)); // NOI18N
@@ -361,53 +361,23 @@ public class PanelGuru extends javax.swing.JPanel {
         // Mengambil indeks baris yang diklik oleh pengguna di tabel tblGuru
         int barisYangDipilih = tblGuru.rowAtPoint(evt.getPoint());
         
-        
-        
-        //mengubah pengambilan nilai yang di pilih, 
-        //jika data koosng maka akan diisi String kosong "",
-        //jika tidak maka baru akan di ubah ke string
-        String NIP,namaGuru,jenisKelamin,alamat;
-
-        if (tblGuru.getValueAt(barisYangDipilih, 0) == null) {
-            NIP = "";
-        } else {
-            NIP = tblGuru.getValueAt(barisYangDipilih, 0).toString();
-        }
-
-        if (tblGuru.getValueAt(barisYangDipilih, 1) == null) {
-            namaGuru = "";
-        } else {
-            namaGuru = tblGuru.getValueAt(barisYangDipilih, 1).toString();
-        }
-
-        if (tblGuru.getValueAt(barisYangDipilih, 2) == null) {
-            jenisKelamin = "";
-        } else {
-            jenisKelamin = tblGuru.getValueAt(barisYangDipilih, 2).toString();
-        }
-
-        if (tblGuru.getValueAt(barisYangDipilih, 3) == null) {
-            alamat = "";
-        } else {
-            alamat = tblGuru.getValueAt(barisYangDipilih, 3).toString();
-        }
      
+        // Mengambil nilai NIP dari kolom pertama (indeks 0) pada baris yang dipilih
+        String NIP = tblGuru.getValueAt(barisYangDipilih, 0).toString();
 
-//        // Mengambil nilai NIP dari kolom pertama (indeks 0) pada baris yang dipilih
-//        String NIP = tblGuru.getValueAt(barisYangDipilih, 0).toString();
-//
-//        // Mengambil nilai nama guru dari kolom kedua (indeks 1) pada baris yang dipilih
-//        String namaGuru = tblGuru.getValueAt(barisYangDipilih, 1).toString();
-//
-//        // Mengambil nilai jenis kelamin dari kolom ketiga (indeks 2) pada baris yang dipilih
-//        String jenisKelamin = tblGuru.getValueAt(barisYangDipilih, 2).toString();
-//
-//        // Mengambil nilai alamat dari kolom keempat (indeks 3) pada baris yang dipilih
-//        String alamat = tblGuru.getValueAt(barisYangDipilih, 3).toString();
+        // Mengambil nilai nama guru dari kolom kedua (indeks 1) pada baris yang dipilih
+        String namaGuru = tblGuru.getValueAt(barisYangDipilih, 1).toString();
 
+        // Mengambil nilai jenis kelamin dari kolom ketiga (indeks 2) pada baris yang dipilih
+        String jenisKelamin = tblGuru.getValueAt(barisYangDipilih, 2).toString();
+
+        ////// Mengambil object alamat dari kolom keempat (indeks 3) pada baris yang dipilih
+        Object alamatObj = tblGuru.getValueAt(barisYangDipilih, 3);
         
+        ////// Mengonversi objek menjadi string, jika null maka hasilnya null atau string kosong
+        String alamat = (alamatObj != null) ? alamatObj.toString() : "";
         
-        
+
         // Menampilkan nilai NIP ke dalam text field tNIP
         tNIP.setText(NIP);
 
@@ -422,7 +392,6 @@ public class PanelGuru extends javax.swing.JPanel {
 
         // Mengecek isi nilai jenis kelamin dan menyesuaikan pilihan pada combo box cJenisKelamin
         switch (jenisKelamin) {
-
             // Jika nilai jenis kelamin "L", set pilihan combo box ke "Laki - laki"
             case "L":
                 cJenisKel.setSelectedItem("Laki - laki");
@@ -438,6 +407,7 @@ public class PanelGuru extends javax.swing.JPanel {
                 cJenisKel.setSelectedItem(null);
                 break;
         }
+        
     }//GEN-LAST:event_tblGuruMouseClicked
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
@@ -515,7 +485,7 @@ public class PanelGuru extends javax.swing.JPanel {
         reset();
     }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
 
         // Mengambil nilai NIP dari text field tNIP
@@ -588,9 +558,9 @@ public class PanelGuru extends javax.swing.JPanel {
 
         // Mereset/mengosongkan form input
         reset();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
 
         // Mengambil nilai NIP dari text field tNIP
@@ -627,19 +597,22 @@ public class PanelGuru extends javax.swing.JPanel {
 
         // Mereset atau mengosongkan form input
         reset();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
+        
         reset();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JComboBox<String> cJenisKel;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

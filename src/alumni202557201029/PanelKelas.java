@@ -30,6 +30,8 @@ public class PanelKelas extends javax.swing.JPanel {
         //menampilkan data kelas ke tabel
         load_tabel_kelas();
         
+
+        
         //mengisi combobox jurusan dari databse
         comboJurusan();
         
@@ -115,6 +117,8 @@ public class PanelKelas extends javax.swing.JPanel {
         tblKelas.setModel(model);
 
     }
+    
+
     
     
     //method utk menisi c box jurusan dari db
@@ -361,7 +365,7 @@ public class PanelKelas extends javax.swing.JPanel {
         jLabel4.setText(" Tingkatan");
         jPanel12.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        cTingkatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cTingkatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
         jPanel12.add(cTingkatan, java.awt.BorderLayout.CENTER);
 
         jPanel8.add(jPanel12);
@@ -373,7 +377,11 @@ public class PanelKelas extends javax.swing.JPanel {
         jLabel5.setText("Jurusan");
         jPanel13.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
-        cJurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cJurusan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cJurusanMouseClicked(evt);
+            }
+        });
         jPanel13.add(cJurusan, java.awt.BorderLayout.CENTER);
 
         jPanel8.add(jPanel13);
@@ -385,7 +393,11 @@ public class PanelKelas extends javax.swing.JPanel {
         jLabel6.setText(" Wali Kelas");
         jPanel14.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
-        cWali.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cWali.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cWaliMouseClicked(evt);
+            }
+        });
         jPanel14.add(cWali, java.awt.BorderLayout.CENTER);
 
         jPanel8.add(jPanel14);
@@ -688,6 +700,16 @@ public class PanelKelas extends javax.swing.JPanel {
         // TODO add your handling code here:
         reset();
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void cJurusanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cJurusanMouseClicked
+        // TODO add your handling code here:
+        comboJurusan();
+    }//GEN-LAST:event_cJurusanMouseClicked
+
+    private void cWaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cWaliMouseClicked
+        // TODO add your handling code here:
+        comboWali();
+    }//GEN-LAST:event_cWaliMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

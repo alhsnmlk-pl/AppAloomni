@@ -23,10 +23,10 @@ public class Koneksi {
 
         try {
             // url koneksi ke database
-            String url = "jdbc:mysql://localhost:3306/alumni_202557201029"; 
+            String url = "jdbc:mysql://localhost:3306/alumni_pl_202557201029"; 
             
             //usrname database
-            String user = "root"; 
+            String user = "root";
             
             //password databse
             String pass = ""; 

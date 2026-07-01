@@ -4,6 +4,12 @@
  */
 package alumni202557201029;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
 /**
  *
  * @author Al
@@ -15,6 +21,62 @@ public class PanelDashboard extends javax.swing.JPanel {
      */
     public PanelDashboard() {
         initComponents();
+        isiJumlahDataDasbor();
+    }
+
+    public void isiJumlahDataDasbor() {
+        // Membuka koneksi ke database
+        Connection conn = Koneksi.konek();
+
+        try {
+            // Mengambil jumlah jurusan dari tabel jurusan
+            String sqlJurusan = "SELECT COUNT(*) AS jumlah FROM jurusan";
+            Statement psJurusan = conn.createStatement();
+            ResultSet rsJurusan = psJurusan.executeQuery(sqlJurusan);
+
+            // Jika hasil query ada, ambil dan tampilkan ke label jumlah jurusan
+            if (rsJurusan.next()) {
+                int jumlah = rsJurusan.getInt("jumlah");
+                jmlJurusan.setText(String.valueOf(jumlah));
+            }
+
+            // Mengambil jumlah guru dari tabel guru
+            String sqlGuru = "SELECT COUNT(*) AS jumlah FROM guru";
+            Statement psGuru = conn.createStatement();
+            ResultSet rsGuru = psGuru.executeQuery(sqlGuru);
+
+            // Jika hasil query ada, ambil dan tampilkan ke label jumlah guru
+            if (rsGuru.next()) {
+                int jumlah = rsGuru.getInt("jumlah");
+                jmlGuru.setText(String.valueOf(jumlah));
+            }
+
+            // Mengambil jumlah siswa dari tabel siswa
+            String sqlSiswa = "SELECT COUNT(*) AS jumlah FROM siswa";
+            Statement psSiswa = conn.createStatement();
+            ResultSet rsSiswa = psSiswa.executeQuery(sqlSiswa);
+
+            // Jika hasil query ada, ambil dan tampilkan ke label jumlah siswa
+            if (rsSiswa.next()) {
+                int jumlah = rsSiswa.getInt("jumlah");
+                jmlSiswa.setText(String.valueOf(jumlah));
+            }
+
+            // Mengambil jumlah kelas dari tabel kelas
+            String sqlKelas = "SELECT COUNT(*) AS jumlah FROM kelas";
+            Statement psKelas = conn.createStatement();
+            ResultSet rsKelas = psKelas.executeQuery(sqlKelas);
+
+            // Jika hasil query ada, ambil dan tampilkan ke label jumlah kelas
+            if (rsKelas.next()) {
+                int jumlah = rsKelas.getInt("jumlah");
+                jmlKelas.setText(String.valueOf(jumlah));
+            }
+
+        } catch (SQLException e) {
+            // Menampilkan pesan di konsol jika terjadi error saat mengambil data
+            System.err.println("Gagal mengambil jumlah data");
+        }
     }
 
     /**

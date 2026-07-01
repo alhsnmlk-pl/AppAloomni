@@ -17,7 +17,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public final class FrameSidebar extends javax.swing.JFrame {
     
-    private CardLayout cardLayout;
+    private  CardLayout cardLayout;
+    
     /**
      * Creates new form FrameDashboard
      */

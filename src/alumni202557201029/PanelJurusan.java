@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Al
  */
 public class PanelJurusan extends javax.swing.JPanel {
+    
+    
 
     /**
      * Creates new form PanelDashboard
@@ -278,7 +280,7 @@ public class PanelJurusan extends javax.swing.JPanel {
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
